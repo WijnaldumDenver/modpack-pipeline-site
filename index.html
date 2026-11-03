@@ -15,6 +15,8 @@
     background: #fafafa;
   }
   h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.25rem; margin-top: 2.5rem; }
+  h3 { font-size: 1rem; margin-top: 1.5rem; }
   .tag { color: #666; margin-bottom: 2rem; }
   code {
     background: #eee;
@@ -30,12 +32,36 @@
     overflow-x: auto;
   }
   ul { padding-left: 1.2rem; }
+  img.screenshot {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: block;
+    margin: 1rem 0;
+  }
+  .platform-badge {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1a56c4;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+  }
+  .terms {
+    font-size: 0.9rem;
+    color: #444;
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+  }
+  .terms p { margin: 0.6rem 0; }
   footer { margin-top: 3rem; color: #999; font-size: 0.85rem; }
 </style>
 </head>
 <body>
   <h1>modpack-pipeline</h1>
-  <p class="tag">A command-line tool for Minecraft modpack maintainers.</p>
+  <p class="tag">A tool for Minecraft modpack maintainers.</p>
 
   <p>
     Diffs two versions of a modpack and checks every mod against the pack's
@@ -44,17 +70,66 @@
     release, not after.
   </p>
 
+  <p>
+    <span class="platform-badge">Windows: desktop app</span>
+    <span class="platform-badge">Mac / Linux: command line</span>
+  </p>
+
   <h2>What it does</h2>
   <ul>
     <li>Diffs mod additions, removals, and version bumps between two pack versions</li>
     <li>Flags mods with no published version supporting your target Minecraft version and loader</li>
+    <li>Knows the difference between an actual mod and a bundled shader pack or resource pack, so it doesn't flag those as "incompatible" for not having a mod-loader build</li>
     <li>Reads packwiz packs, CurseForge manifest exports, and Modrinth <code>.mrpack</code> files</li>
     <li>Drops straight into a GitHub Action for CI-driven release checks</li>
   </ul>
 
-  <h2>Example</h2>
+  <h2>Windows: no terminal required</h2>
+  <p>
+    On Windows, modpack-pipeline ships as a desktop app. Pick a pack folder
+    or <code>.mrpack</code> file with a normal file browser, click a button,
+    read the results — nothing to type.
+  </p>
+  <img class="screenshot" src="screenshots/gui-check-result.png" alt="modpack-pipeline Windows app showing a completed compatibility check with no issues found">
+  <p>
+    Mac and Linux are command-line only for now — a desktop app for those
+    is on the roadmap, not yet built.
+  </p>
+
+  <h3>Command line (all platforms)</h3>
   <pre>npx modpack-pipeline diff ./pack-v1 ./pack-v2
 npx modpack-pipeline check ./pack</pre>
+
+  <div class="terms">
+    <h2>Terms &amp; notes</h2>
+    <p>
+      <strong>Status:</strong> in active development. Interfaces and output
+      formats may still change between versions.
+    </p>
+    <p>
+      <strong>No warranty.</strong> This tool is provided as-is, with no
+      guarantee it catches every compatibility problem a pack can have.
+      It flags what the Modrinth and CurseForge APIs report; it doesn't
+      launch Minecraft or test a pack in-game. Always test a pack yourself
+      before shipping a release to players.
+    </p>
+    <p>
+      <strong>Data:</strong> modpack-pipeline reads your pack files locally
+      and queries the public Modrinth and CurseForge APIs to check mod
+      compatibility. It doesn't collect, store, or transmit your pack,
+      your files, or any personal data anywhere else.
+    </p>
+    <p>
+      <strong>Not affiliated with Mojang, Microsoft, Modrinth, or
+      CurseForge/Overwolf.</strong> "Minecraft" is a trademark of Mojang
+      Studios. This is an independent, unofficial tool.
+    </p>
+    <p>
+      <strong>Licensing:</strong> pricing and licensing terms will be shown
+      at checkout. Questions before buying — use the contact on the
+      purchase page.
+    </p>
+  </div>
 
   <footer>Status: in development.</footer>
 </body>
